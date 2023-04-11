@@ -6,33 +6,47 @@ import { Component } from '@angular/core';
   styleUrls: ['./busqueda-tesoro.component.scss']
 })
 export class BUSQUEDATESOROComponent {
-  numRows! : number; 
-  numCols! : number; 
-  // rows: any[] = [];
-  // cols:any[] = [];
-  matrizImages: any =[];
-  click : boolean = false;
-  posicionTesoro : any = [0,0];
-  filas:number=0;
- columnas:number=0;
-encontrado!:boolean;
+  matrizImages: any[] = [];
+  filas: number = 0;
+  columnas: number = 0;
+  posicionTesoro: any = { fila: 0, columna: 0 };
+  encontrado: boolean = false;
 
-empezarJuego(){
-  for (let i=0; i < this.filas; i++) {
-    this.matrizImages [i] = [];
-    this.posicionTesoro[0]= this.randomNumber(this.filas);
-    this.posicionTesoro[1]= this.randomNumber(this.columnas);
-    for (let j=0; j < this.columnas; j++) {
-      this.matrizImages[i][j] = [];
-      this.matrizImages[i][j].encontrado = false;// tesoro
-      this.matrizImages[i][j].vacio = true; // imagen no clickada
-      console.log(this.matrizImages[i][j].encontrado);
+  empezarJuego() {
+    this.matrizImages = [];
+    for (let i = 0; i < this.filas; i++) {
+      let fila = [];
+      for (let j = 0; j < this.columnas; j++) {
+        fila.push({ imagen: 'vacio' });
+      }
+      this.matrizImages.push(fila);
     }
+    this.posicionTesoro.fila = this.randomNumber(this.filas);
+    this.posicionTesoro.columna = this.randomNumber(this.columnas);
+    this.matrizImages[this.posicionTesoro.fila][this.posicionTesoro.columna].imagen = 'tesoro';
+    this.encontrado = false;
   }
-  this.matrizImages[(this.posicionTesoro[0])][(this.posicionTesoro[1])].encontrado=true;
-  console.log(this.posicionTesoro);
-}
-randomNumber ( num: number ) {
-  return Math.floor(Math.random()*(num))
-}
+
+  randomNumber(num: number) {
+    return Math.floor(Math.random() * num);
+  }
+
+  // clickImagen(fila: number, columna: number): void {
+  //   if (fila === this.posicionTesoro.fila && columna === this.posicionTesoro.columna) {
+  //     // Se ha encontrado el tesoro
+  //     this.encontrado = true;
+  //   } else {
+  //     // No se ha encontrado el tesoro
+  //     this.matrizImages[fila][columna] = 'error';
+  //   }
+  // }
+
+  resetearJuego(): void {
+    this.filas = 0;
+    this.columnas = 0;
+    this.matrizImages = [];
+    this.encontrado = false;
+    this.posicionTesoro = { fila: -1, columna: -1 };
+  }
+
 }

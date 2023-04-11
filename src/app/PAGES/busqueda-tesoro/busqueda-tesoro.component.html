@@ -1,26 +1,25 @@
 <div class="container">
-   <form>
-    <label>FILAS:
-        <input type="number" name="filas" [(ngModel)]="filas">
-    </label>
-    <br>
-    <label>COLUMNAS:
-        <input type="number" name="columnas" [(ngModel)]="columnas">
-    </label>
-    <br>
-    <button (click)="empezarJuego()">Empezar Juego</button>
-   </form>
-   <table>
-    <tr *ngFor="let fila of matrizImages ; let i = index">
-        <td *ngFor="let imagen of fila ; let j = index">
-            <img *ngIf="encontrado && fila === posicionTesoro.fila && j === posicionTesoro" src="../../../assets/exercise-4/chest.png">
-            <img *ngIf="!encontrado && fila === posicionTesoro.fila && j === posicionTesoro" src="../../../assets/exercise-4/skull.png">
-            <img *ngIf="imagen === 'vacio' " src="../../../assets/exercise-4/x.png">
-            <!-- <img *ngIf="imagen === 'error' " src="../../../assets/exercise-4/skull.png"> -->
-            <img *ngIf="imagen != 'vacio' && imagen != 'tesoro' " src="../../../assets/exercise-4/skull.png">
-            <img *ngIf="imagen === 'tesoro' " src="../../../assets/exercise-4/chest.png">
-        </td>
-    </tr>
-   </table>
-   <button>RESETEAR JUEGO</button>
-</div>
+    <form>
+     <label>FILAS:
+         <input type="number" name="filas" [(ngModel)]="filas">
+     </label>
+     <br>
+     <label>COLUMNAS:
+         <input type="number" name="columnas" [(ngModel)]="columnas">
+     </label>
+     <br>
+     <button (click)="empezarJuego()">Empezar Juego</button>
+    </form>
+    <table>
+     <tr *ngFor="let fila of matrizImages ; let i = index">
+         <td *ngFor="let celda of fila ; let j = index">
+             <img *ngIf="encontrado && fila === posicionTesoro.fila && j === posicionTesoro.columna" src="../../../assets/exercise-4/chest.png">
+             <img *ngIf="!encontrado && fila === posicionTesoro.fila && j === posicionTesoro.columna" src="../../../assets/exercise-4/skull.png">
+             <img *ngIf="celda.imagen === 'vacio' " src="../../../assets/exercise-4/x.png" (click)="celda.imagen = (fila === posicionTesoro.fila && j === posicionTesoro.columna) ? 'tesoro' : 'calavera'">
+             <img *ngIf="celda.imagen === 'calavera' " src="../../../assets/exercise-4/skull.png">
+             <img *ngIf="celda.imagen === 'tesoro' " src="../../../assets/exercise-4/chest.png">
+         </td>
+     </tr>
+    </table>
+    <button (click)="resetearJuego()">RESETEAR JUEGO</button>
+ </div>
