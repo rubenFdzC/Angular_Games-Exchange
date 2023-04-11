@@ -1,0 +1,10 @@
+<div>
+<label >Introduce el dinero a convertir:
+    <input type="number" placeholder="Importe" [(ngModel)]="cambio">
+</label>
+<div class="container" *ngIf="exchanges">
+<div class="country" *ngFor="let item of exchanges">
+   <h4>{{item.name}}</h4>
+    <p>{{cambio < 0 || cambio === 0||!cambio ? item.value: item.value * cambio}}</p>
+</div>
+</div>
